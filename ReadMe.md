@@ -1,4 +1,4 @@
 #Auto fill data
 
-Install by dragging and dropping to edge://extensions/
-Run autofill.regkey to trust the extension
+1. Install by dragging and dropping [autofill.crx](./autofill.crx) to edge://extensions/
+2. Run [autofill.reg](./auofill.reg) to trust the extension
