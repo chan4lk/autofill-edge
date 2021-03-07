@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <style>
+      body {
+        width: 500px;
+      }
+      .row {
+        margin: 10px;
+      }      
+    </style>
+  </head>
+  <body>
+    <div class="row">
+      <label>Head</label>
+      <input id="access" value="1.08.05.01-004-01" />
+      <input id="ic" value="01044306" />
+      <button id="sendmessageid">login</button>
+    </div>
+    <div class="row">
+      <label>Citizen</label>
+      <input id="access_citizen" value="1.08.05.01-004-01" />
+      <input id="ic_citizen" value="01044307" />
+      <button id="sendmessageid_citizen">login</button>
+    </div>
+    <div class="row">
+      <label>Head</label>
+      <input id="accessdev" value="1.08.05.01-001-01" />
+      <input id="icdev" value="01044293" />
+      <button id="sendmessageiddev">login dev</button>
+    </div>
+    <div class="row">
+      <label>Citizen</label>
+      <input id="accessdev_citizen" value="1.08.05.01-001-01" />
+      <input id="icdev_citizen" value="01044401" />
+      <button id="sendmessageiddev_citizen">login dev</button>
+    </div>
+    
+    <button id="tokentrigger">OTP</button>  
+
+    <script src="popup.js"></script>
+  </body>
+</html>
