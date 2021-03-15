@@ -60,3 +60,27 @@ if (tokentrigger) {
     });
   };
 }
+
+const resetBtn = document.getElementById("reset");
+
+const reset = (buttonId, accessId, icId, access, ic) => {
+  const data = {
+    access,
+    ic,
+  };
+
+  chrome.storage.sync.set({ [buttonId]: data }, function () {
+    document.getElementById(accessId).value = access;
+    document.getElementById(icId).value = ic;
+  });
+};
+
+if (resetBtn) {
+  resetBtn.onclick = function () {
+
+    reset("sendmessageid", "access", "ic", "1.08.05.01-004-01", "01044306");
+    reset("sendmessageid_citizen", "access_citizen", "ic_citizen", "1.08.05.01-004-01", "01044307");
+    reset("sendmessageiddev", "accessdev", "icdev", "1.08.05.01-001-01", "01044293");
+    reset("sendmessageiddev_citizen", "accessdev_citizen", "icdev_citizen", "1.08.05.01-001-01", "01044401");
+  };
+}
