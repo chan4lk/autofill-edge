@@ -1,98 +1,58 @@
-const sendMessageId = document.getElementById("sendmessageid");
-if (sendMessageId) {
-  sendMessageId.onclick = function() {
-    chrome.tabs.query({ active: true, currentWindow: true }, function(tabs) {
-      chrome.tabs.sendMessage(
-        tabs[0].id,
-        {
-          access: document.getElementById('access').value,
-          ic: document.getElementById('ic').value, 
-          type: 'login',         
-          tabId: tabs[0].id
-        },
-        function(response) {
-          console.log("message with url sent");
-          window.close();
-        }
-      );
-    });
-  };
-}
+const addLogin = (buttonId, accessId, icId) => {
+  chrome.storage.sync.get([buttonId], function (result) {
+    if (result[buttonId]) {
+      if (result[buttonId].access)
+        document.getElementById(accessId).value = result[buttonId].access;
+      if (result[buttonId].ic)
+        document.getElementById(icId).value = result[buttonId].ic;
+    }
+  });
 
-const sendMessageId_citizen = document.getElementById("sendmessageid_citizen");
-if (sendMessageId_citizen) {
-  sendMessageId_citizen.onclick = function() {
-    chrome.tabs.query({ active: true, currentWindow: true }, function(tabs) {
-      chrome.tabs.sendMessage(
-        tabs[0].id,
-        {
-          access: document.getElementById('access_citizen').value,
-          ic: document.getElementById('ic_citizen').value, 
-          type: 'login',         
-          tabId: tabs[0].id
-        },
-        function(response) {
-          console.log("message with url sent");
-          window.close();
-        }
-      );
-    });
-  };
-}
+  const sendMessageId = document.getElementById(buttonId);
+  if (sendMessageId) {
+    sendMessageId.onclick = function () {
+      const data = {
+        access: document.getElementById(accessId).value,
+        ic: document.getElementById(icId).value,
+      };
 
-const sendMessageIddev = document.getElementById("sendmessageiddev");
-if (sendMessageIddev) {
-  sendMessageIddev.onclick = function() {
-    chrome.tabs.query({ active: true, currentWindow: true }, function(tabs) {
-      chrome.tabs.sendMessage(
-        tabs[0].id,
-        {
-          access: document.getElementById('accessdev').value,
-          ic: document.getElementById('icdev').value, 
-          type: 'login',         
-          tabId: tabs[0].id
-        },
-        function(response) {
-          console.log("message with url sent");
-          window.close();
-        }
-      );
-    });
-  };
-}
+      chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
+        chrome.storage.sync.set({ [buttonId]: data }, function () {
+          chrome.tabs.sendMessage(
+            tabs[0].id,
+            {
+              access: data.access,
+              ic: data.ic,
+              type: "login",
+              tabId: tabs[0].id,
+            },
+            function (response) {
+              console.log("message with url sent");
+              window.close();
+            }
+          );
+        });
+      });
+    };
+  }
+};
 
-const sendMessageIddev_citizen = document.getElementById("sendmessageiddev_citizen");
-if (sendMessageIddev_citizen) {
-  sendMessageIddev.onclick = function() {
-    chrome.tabs.query({ active: true, currentWindow: true }, function(tabs) {
-      chrome.tabs.sendMessage(
-        tabs[0].id,
-        {
-          access: document.getElementById('accessdev_citizen').value,
-          ic: document.getElementById('icdev_citizen').value, 
-          type: 'login',         
-          tabId: tabs[0].id
-        },
-        function(response) {
-          console.log("message with url sent");
-          window.close();
-        }
-      );
-    });
-  };
-}
+addLogin("sendmessageid", "access", "ic");
+addLogin("sendmessageid_citizen", "access_citizen", "ic_citizen");
+addLogin("sendmessageiddev", "accessdev", "icdev");
+addLogin("sendmessageiddev_citizen", "accessdev_citizen", "icdev_citizen");
 
 const tokentrigger = document.getElementById("tokentrigger");
 if (tokentrigger) {
-  tokentrigger.onclick = function() {
-    chrome.tabs.query({ active: true, currentWindow: true }, function(tabs) {
+  tokentrigger.onclick = function () {
+    chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
       chrome.tabs.sendMessage(
         tabs[0].id,
-        {         
-          type: 'otp',    
-          tabId: tabs[0].id
+        {
+          type: "otp",
+          tabId: tabs[0].id,
         },
-        function(response) {
+        function (response) {
           console.log("message with url sent");
           window.close();
         }
